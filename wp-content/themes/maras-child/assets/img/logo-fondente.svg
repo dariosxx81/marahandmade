@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 175" fill="none">
+  <!-- Stylized Bull/Bison Silhouette from Logo.pdf -->
+  <path d="M108 66 L142 58 C147 51 153 47 161 46 C166 32 178 21 200 18 C225 14 252 13 268 15 C277 16 283 22 287 32 C296 51 322 65 360 76 C366 78 372 77 379 73 C386 68 394 67 397 72 C398 75 394 76 389 75 C382 74 375 82 365 84 C324 75 292 59 278 37 C273 29 268 25 256 24 C236 23 209 25 190 29 C174 33 166 43 163 54 C168 57 171 61 168 65 C164 64 160 61 156 59 L146 61 L153 69 C161 73 169 78 175 88 C179 95 181 105 184 112 L193 111 L193 115 L180 116 C176 107 173 96 167 88 C160 79 152 76 144 68 L108 66 Z" fill="#3B2923"/>
+  <!-- Mara's Script Typography -->
+  <text x="295" y="114" text-anchor="middle" font-family="'Cormorant Garamond', 'Playfair Display', Georgia, serif" font-size="84" font-style="italic" font-weight="600" fill="#3B2923" letter-spacing="1">Mara’s</text>
+  <!-- TAORMINA -->
+  <text x="295" y="138" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="18" font-weight="600" fill="#3B2923" letter-spacing="14">TAORMINA</text>
+  <!-- MADE IN ITALY -->
+  <text x="295" y="154" text-anchor="middle" font-family="'Jost', sans-serif" font-size="10" font-weight="500" fill="#A66B45" letter-spacing="4">MADE IN ITALY</text>
+  <!-- The Leather Company -->
+  <text x="295" y="170" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="15" font-style="italic" font-weight="600" fill="#3B2923" letter-spacing="1.5">The Leather Company</text>
+</svg>
