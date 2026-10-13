@@ -58,7 +58,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <link rel='stylesheet' id='base-desktop-css' href='./wp-content/uploads/elementor/css/base-desktop.css?ver=6ac7cc75a0a4a' media='all' />
 <link rel='stylesheet' id='base-mobile-css' href='./wp-content/uploads/elementor/css/base-mobile.css?ver=6ac7cc75a0a4a' media='(max-width:767px)' />
 <link rel='stylesheet' id='mara-google-fonts-css' href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&#038;family=Jost:wght@300;400;500;600&#038;display=swap' media='all' />
-<link rel='stylesheet' id='maras-child-style-css' href='./wp-content/themes/maras-child/style.css?ver=1791480924' media='all' />
+<link rel='stylesheet' id='maras-child-style-css' href='./wp-content/themes/maras-child/style.css?ver=1791480928' media='all' />
 <link rel='stylesheet' id='elementor-gf-roboto-css' href='https://fonts.googleapis.com/css?family=Roboto:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&#038;display=swap' media='all' />
 <link rel='stylesheet' id='elementor-gf-robotoslab-css' href='https://fonts.googleapis.com/css?family=Roboto+Slab:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&#038;display=swap' media='all' />
 <link rel='stylesheet' id='elementor-gf-dmsans-css' href='https://fonts.googleapis.com/css?family=DM+Sans:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&#038;display=swap' media='all' />
@@ -256,6 +256,31 @@ var woocommerce_params = {"ajax_url":"/wp-admin/admin-ajax.php","wc_ajax_url":"/
     </script>
 </head>
 <body class="home wp-singular page-template-default page page-id-13 wp-embed-responsive wp-theme-hello-elementor wp-child-theme-maras-child theme-hello-elementor woocommerce-no-js hello-elementor-default elementor-default elementor-kit-10 elementor-page elementor-page-13" x-data="{ scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 30)">
+
+<!-- WORDPRESS ADMIN PREVIEW BAR -->
+<div style="background:#1d2327; color:#f0f0f1; font-size:12px; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display:flex; align-items:center; justify-content:space-between; padding:8px 20px; border-bottom:1px solid #383d41; z-index:999999; position:sticky; top:0; box-shadow:0 2px 8px rgba(0,0,0,0.25); flex-wrap:wrap; gap:10px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+        <span style="background:#2271b1; color:#fff; font-size:10px; font-weight:700; padding:2px 7px; border-radius:3px; text-transform:uppercase; letter-spacing:0.5px;">WP Admin</span>
+        <span style="color:#a7aaad;">Modalità Anteprima:</span>
+        <span style="color:#fff; font-weight:600; text-decoration:underline;">Home</span>
+        <span style="color:#666;">/</span>
+        <a href="shop.html" style="color:#c3c4c7; text-decoration:none; font-weight:500;">Shop</a>
+        <span style="color:#666;">/</span>
+        <a href="prodotto.html" style="color:#c3c4c7; text-decoration:none; font-weight:500;">Scheda Prodotto</a>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px;">
+        <span style="color:#a7aaad; font-size:11px;">Pannello Backend:</span>
+        <a href="backend-prodotto.html" style="background:#2271b1; color:#fff; padding:4px 12px; border-radius:3px; text-decoration:none; font-weight:600; display:inline-flex; align-items:center; gap:5px; transition:background 0.15s;">
+            ✏️ Modifica Prodotto (Metabox)
+        </a>
+        <a href="backend-categorie.html" style="background:#3b2923; color:#f4ece1; padding:4px 12px; border-radius:3px; text-decoration:none; font-weight:600; display:inline-flex; align-items:center; gap:5px; border:1px solid #5a3e35; transition:background 0.15s;">
+            📁 Categorie &amp; Pilastri
+        </a>
+        <a href="backend-opzioni.html" style="background:#464b50; color:#fff; padding:4px 12px; border-radius:3px; text-decoration:none; font-weight:600; display:inline-flex; align-items:center; gap:5px; transition:background 0.15s;">
+            ⚙️ Opzioni Boutique
+        </a>
+    </div>
+</div>
 
 <!-- 1. TOP BAR COLOR FONDENTE (#3B2923) - Il Bisonte Style -->
 <div class="mara-topbar">
@@ -580,7 +605,7 @@ var woocommerce_params = {"ajax_url":"/wp-admin/admin-ajax.php","wc_ajax_url":"/
                         <div class="mara-divider"></div>
                         <p class="mara-hero-desc">
                             Borse e pelletteria in vera pelle italiana, fatte a mano a Taormina. Scopri le collezioni dedicate a Lei e a Lui.                        </p>
-                        <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center;">
+                        <div class="mara-hero-btn-group">
                             <a href="#sezione-per-lei" class="mara-btn">
                                 Collezione Per Lei →                            </a>
                             <a href="#sezione-per-lui" class="mara-btn mara-btn-outline">

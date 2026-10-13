@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifica Prodotto &lsaquo; Mara&#039;s Taormina &#8212; WordPress Admin</title>
+    <link rel="stylesheet" href="wp-admin-preview.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+</head>
+<body class="wp-admin-body" x-data="maraAdminProduct()">
+
+    <!-- TOP WORDPRESS ADMIN BAR -->
+    <header id="wpadminbar">
+        <div class="wpadminbar-left">
+            <a href="index.html" class="wpadminbar-brand" title="Vai alla Home del sito">
+                <svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 0a10 10 0 1010 10A10 10 0 0010 0zm0 1.25a8.75 8.75 0 018.75 8.75c0 1.58-.42 3.06-1.15 4.35L12.78 3.52c.48-.05.97-.08 1.47-.08v-.77H9.75v.77c.39 0 .78.02 1.17.06L8.4 12.3 6.06 5.86c.27-.05.54-.08.82-.08v-.77H2.82v.77c.45 0 .89.03 1.33.08L7.5 17.65A8.74 8.74 0 011.25 10 8.75 8.75 0 0110 1.25zM10 18.75a8.7 8.7 0 01-4.14-1.04l4.23-12.28 4.3 11.8c-.02.04-.04.09-.07.13a8.68 8.68 0 01-4.32 1.39zm7.32-4.66l-2.9-8.42c.22-.02.43-.03.65-.03.35 0 .7.02 1.05.06l2.12 7.15c.02.08.04.16.06.24a8.65 8.65 0 01-.98 1z"/></svg>
+                <span>Mara's Taormina</span>
+            </a>
+            <span class="wpadminbar-badge">WordPress 6.x</span>
+            <div class="wpadminbar-nav">
+                <a href="backend-prodotto.html" class="wpadminbar-link is-active">✏️ Modifica Prodotto</a>
+                <a href="backend-categorie.html" class="wpadminbar-link">📁 Categorie & Pilastri</a>
+                <a href="backend-opzioni.html" class="wpadminbar-link">⚙️ Opzioni Boutique</a>
+            </div>
+        </div>
+        <div class="wpadminbar-right">
+            <a href="prodotto.html" class="wpadminbar-link wpadminbar-frontend-btn" target="_blank" title="Visualizza la scheda prodotto pubblica">
+                👁️ Visualizza Scheda Prodotto &rarr;
+            </a>
+            <a href="shop.html" class="wpadminbar-link" target="_blank">Shop</a>
+            <a href="index.html" class="wpadminbar-link" target="_blank">Home</a>
+            <span style="color:#a7aaad; font-size:12px;">Ciao, <strong>Amministratore</strong></span>
+        </div>
+    </header>
+
+    <div class="wp-admin-wrapper">
+        <!-- LEFT SIDEBAR -->
+        <aside class="wp-admin-sidebar">
+            <ul class="wp-admin-menu">
+                <li class="wp-menu-item">
+                    <a href="backend-opzioni.html" class="wp-menu-link">
+                        <span class="wp-menu-icon">👜</span>
+                        <span>Boutique Mara's</span>
+                    </a>
+                </li>
+                <li class="wp-menu-item">
+                    <a href="#" class="wp-menu-link">
+                        <span class="wp-menu-icon">📊</span>
+                        <span>WooCommerce</span>
+                    </a>
+                </li>
+                <li class="wp-menu-item current">
+                    <a href="backend-prodotto.html" class="wp-menu-link">
+                        <span class="wp-menu-icon">🏷️</span>
+                        <span>Prodotti</span>
+                    </a>
+                    <ul class="wp-submenu">
+                        <li><a href="backend-prodotto.html">Tutti i prodotti</a></li>
+                        <li class="current"><a href="backend-prodotto.html">Modifica Prodotto</a></li>
+                        <li><a href="backend-categorie.html">Categorie (Saper Fare &amp; Pilastri)</a></li>
+                        <li><a href="#">Tag</a></li>
+                        <li><a href="#">Attributi</a></li>
+                    </ul>
+                </li>
+                <li class="wp-menu-item">
+                    <a href="#" class="wp-menu-link">
+                        <span class="wp-menu-icon">📄</span>
+                        <span>Pagine (Elementor)</span>
+                    </a>
+                </li>
+                <li class="wp-menu-item">
+                    <a href="#" class="wp-menu-link">
+                        <span class="wp-menu-icon">🎨</span>
+                        <span>Aspetto (Hello Mara's)</span>
+                    </a>
+                </li>
+                <li class="wp-menu-item">
+                    <a href="backend-opzioni.html" class="wp-menu-link">
+                        <span class="wp-menu-icon">⚙️</span>
+                        <span>Impostazioni Mara's</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ADMIN AREA -->
+        <main class="wp-admin-main">
+            <!-- HEADER -->
+            <div class="wp-admin-header">
+                <div class="wp-admin-title-row">
+                    <h1 class="wp-admin-h1">Modifica Prodotto</h1>
+                    <a href="#" class="page-title-action">+ Aggiungi nuovo prodotto</a>
+                </div>
+                <div>
+                    <a href="prodotto.html" target="_blank" class="button button-secondary" style="margin-right:8px;">
+                        👁️ Anteprima Modifiche
+                    </a>
+                    <button type="button" class="button button-primary button-large" @click="saveProduct()">
+                        💾 Aggiorna Prodotto
+                    </button>
+                </div>
+            </div>
+
+            <!-- SUCCESS NOTIFICATION -->
+            <div class="notice notice-success" x-show="showSavedNotice" x-transition>
+                <p><strong>Prodotto aggiornato con successo.</strong> <a href="prodotto.html" target="_blank" style="color:#2271b1; font-weight:600; text-decoration:underline;">Visualizza prodotto &rarr;</a></p>
+                <button type="button" class="button button-small" @click="showSavedNotice = false">&times;</button>
+            </div>
+
+            <!-- POST EDIT GRID (MAIN CONTENT + SIDEBAR) -->
+            <div class="postbox-container-grid">
+                <!-- LEFT COLUMN -->
+                <div class="postbox-main-col">
+                    <!-- TITLE & PERMALINK -->
+                    <div id="titlediv">
+                        <input type="text" name="post_title" id="title" value="Borsa Iconica &quot;Taormina&quot; con Morsetto Oro — Petrolio" placeholder="Aggiungi titolo">
+                        <div id="edit-slug-box">
+                            <strong>Permalink:</strong>
+                            <span id="sample-permalink">
+                                https://marasboutique.it/prodotto/<a href="prodotto.html" target="_blank">borsa-iconica-taormina-con-morsetto-oro-petrolio</a>/
+                            </span>
+                            <button type="button" class="button button-small">Modifica</button>
+                            <a href="prodotto.html" target="_blank" class="button button-small">Visualizza prodotto</a>
+                        </div>
+                    </div>
+
+                    <!-- SHORT DESCRIPTION -->
+                    <div class="postbox">
+                        <div class="postbox-header">
+                            <h2><span>📝 Breve descrizione del prodotto</span></h2>
+                        </div>
+                        <div class="postbox-inside">
+                            <textarea rows="3" style="width:100%;">La creazione simbolo di Mara's Taormina: borsa strutturata a mano in pelle pieno fiore color Petrolio con iconico morsetto in ottone dorato e tracolla rimovibile.</textarea>
+                            <small style="color:#666; margin-top:4px; display:block;">Mostrata in evidenza sotto al titolo e al prezzo nella colonna destra della scheda prodotto.</small>
+                        </div>
+                    </div>
+
+                    <!-- MARA'S CUSTOM METABOX (BISONTE & EXTRA META) -->
+                    <div class="postbox" style="border:2px solid #9e5b32; box-shadow:0 2px 8px rgba(158,91,50,0.12);">
+                        <div class="postbox-header" style="background:#faf6f2; border-bottom:1px solid #e8dbcf;">
+                            <h2 style="color:#3b2923;">
+                                <span style="font-size:18px;">✨</span>
+                                <strong>Mara's • Configurazione Prodotto &amp; Stile Il Bisonte</strong>
+                            </h2>
+                            <span class="wpadminbar-badge" style="background:#9e5b32;">Esclusivo Mara's Child Theme</span>
+                        </div>
+                        <div class="postbox-inside" style="background:#fdfcfb; padding:18px;">
+                            
+                            <!-- 1. BADGE PRODOTTO -->
+                            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:6px; padding:16px; margin-bottom:18px;">
+                                <h4 style="margin:0 0 6px; color:#1d2327; font-size:14px;">🏷️ Badge Prodotto</h4>
+                                <p style="margin:0 0 12px; font-size:12px; color:#666;">
+                                    Seleziona un badge dall'elenco a tendina oppure inseriscine uno nuovo. Compare sopra la foto principale del prodotto e sulle card dello Shop.
+                                </p>
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:start;">
+                                    <div>
+                                        <label style="font-weight:600; display:block; margin-bottom:6px;">Seleziona Badge Esistente:</label>
+                                        <select x-model="selectedBadge" @change="onBadgeSelectChange()" style="height:36px;">
+                                            <option value="">— Nessun Badge —</option>
+                                            <template x-for="b in availableBadges" :key="b">
+                                                <option :value="b" x-text="b"></option>
+                                            </template>
+                                            <option value="__custom__">➕ + Inserisci Nuovo Badge...</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style="font-weight:600; display:block; margin-bottom:6px;">Valore Badge Attivo / Nuovo Nome:</label>
+                                        <input type="text" x-model="activeBadgeText" placeholder="Es. Iconica • Best Seller" style="height:36px;">
+                                        <small style="color:#666; display:block; margin-top:4px;">Il testo qui sopra viene salvato e memorizzato automaticamente nella lista.</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 2. COLORI & SWATCHES -->
+                            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:6px; padding:16px; margin-bottom:18px;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                    <h4 style="margin:0; color:#1d2327; font-size:14px;">🎨 Colori Disponibili (Pallini Colore, Foto Variante, Prezzo e SKU)</h4>
+                                    <span style="font-size:11px; background:#eef6fc; color:#0073aa; padding:3px 8px; border-radius:4px; font-weight:600;">Sincronizzazione Dinamica Scheda Prodotto</span>
+                                </div>
+                                <p style="margin:0 0 12px; font-size:12px; color:#666;">
+                                    Imposta i colori per questo modello. Puoi specificare un <strong>Prezzo differente</strong> (es. €290) e uno <strong>SKU specifico</strong> per ciascuna variante: al cambio colore sul sito, prezzo e SKU si aggiorneranno in tempo reale e verranno registrati nei dati d'ordine.
+                                </p>
+                                
+                                <table class="wp-list-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:55px;">Colore</th>
+                                            <th style="width:170px;">Nome Colore</th>
+                                            <th style="width:95px;">Prezzo (€)</th>
+                                            <th style="width:140px;">SKU Variante</th>
+                                            <th>Foto Variante (Media Library)</th>
+                                            <th style="width:40px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template x-for="(sw, idx) in swatches" :key="idx">
+                                            <tr>
+                                                <td>
+                                                    <input type="color" x-model="sw.hex" style="width:38px; height:32px; padding:0; border:1px solid #ccc; cursor:pointer;">
+                                                </td>
+                                                <td>
+                                                    <input type="text" x-model="sw.name" placeholder="Es. Petrolio Taormina">
+                                                </td>
+                                                <td>
+                                                    <input type="number" step="1" x-model="sw.price" placeholder="Default">
+                                                </td>
+                                                <td>
+                                                    <input type="text" x-model="sw.sku" placeholder="Es. MARA-01-PET">
+                                                </td>
+                                                <td>
+                                                    <div style="display:flex; align-items:center; gap:8px;">
+                                                        <div style="width:32px; height:32px; border:1px solid #ddd; border-radius:3px; overflow:hidden; flex-shrink:0; background:#eee;">
+                                                            <img :src="sw.img" style="width:100%; height:100%; object-fit:cover;">
+                                                        </div>
+                                                        <input type="text" x-model="sw.img" placeholder="URL Immagine..." style="font-size:11px;">
+                                                        <button type="button" class="button button-small" @click="openMediaModal(idx, 'swatch')">📷 Scegli</button>
+                                                    </div>
+                                                </td>
+                                                <td style="text-align:center;">
+                                                    <button type="button" class="button button-small" @click="removeSwatch(idx)" style="color:#b32d2e;">&times;</button>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                                <div style="margin-top:10px;">
+                                    <button type="button" class="button" @click="addSwatch()">+ Aggiungi Colore</button>
+                                </div>
+                            </div>
+
+                            <!-- 3. STORIA DEL PRODOTTO -->
+                            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:6px; padding:16px; margin-bottom:18px;">
+                                <h4 style="margin:0 0 6px; color:#1d2327; font-size:14px;">📖 Storia &amp; Descrizione Artigianale («Com'è realizzata &amp; Storia»)</h4>
+                                <label style="font-weight:600; display:block; margin-bottom:6px;">Testo Storia:</label>
+                                <textarea rows="3" style="width:100%;" x-model="storyText"></textarea>
+                                <small style="color:#666; display:block; margin-top:4px;">Compare come breve introduzione sotto il titolo e dentro la 1ª fisarmonica tecnica «Com'è realizzata &amp; Storia».</small>
+                            </div>
+
+                            <!-- 4. DETTAGLI PRODOTTO & DIMENSIONI -->
+                            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:6px; padding:16px; margin-bottom:18px;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                    <h4 style="margin:0; color:#1d2327; font-size:14px;">📐 Dettagli Prodotto &amp; Dimensioni (2ª Fisarmonica Tecnica)</h4>
+                                </div>
+                                <p style="margin:0 0 12px; font-size:12px; color:#666;">
+                                    Inserisci le caratteristiche tecniche della borsa (Dimensioni, Materiale, Fodera, Tasche, Tracolla, Metalleria).
+                                </p>
+                                <table class="wp-list-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:200px;">Caratteristica</th>
+                                            <th>Descrizione / Valore</th>
+                                            <th style="width:40px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template x-for="(det, dIdx) in details" :key="dIdx">
+                                            <tr>
+                                                <td>
+                                                    <input type="text" x-model="det.key" placeholder="Es. Dimensioni">
+                                                </td>
+                                                <td>
+                                                    <input type="text" x-model="det.val" placeholder="Es. 24 × 18 × 10 cm">
+                                                </td>
+                                                <td style="text-align:center;">
+                                                    <button type="button" class="button button-small" @click="removeDetail(dIdx)" style="color:#b32d2e;">&times;</button>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                                <div style="margin-top:10px;">
+                                    <button type="button" class="button" @click="addDetail()">+ Aggiungi Riga Dettaglio</button>
+                                </div>
+                            </div>
+
+                            <!-- 5. INFORMAZIONI SUL NEGOZIO -->
+                            <div style="background:#eef6fc; border-left:4px solid #0073aa; padding:12px 16px; font-size:13px; color:#1d2327; border-radius:0 4px 4px 0;">
+                                <p style="margin:0 0 6px;"><strong>💡 Informazioni sulla configurazione del negozio:</strong></p>
+                                <ul style="margin:0; padding-left:18px; line-height:1.6;">
+                                    <li><strong>Abbinamenti Consigliati («Completa il tuo abbinamento»):</strong> Gestiti dal tab nativo di WooCommerce <em>«Dati prodotto &rarr; Articoli collegati &rarr; Cross-sell / Up-sell»</em> (sotto).</li>
+                                    <li><strong>Saper Fare Artigianale &amp; i 3 Pilastri (1/2/3):</strong> Gestiti per ciascuna <strong>Categoria Prodotto</strong> in <a href="backend-categorie.html" style="color:#0073aa; font-weight:600; text-decoration:underline;">Prodotti &rarr; Categorie</a>.</li>
+                                    <li><strong>Spedizione, Consegna &amp; Istruzioni per la Cura:</strong> Configurabili globalmente per tutto il sito nel menu <a href="backend-opzioni.html" style="color:#0073aa; font-weight:600; text-decoration:underline;">Boutique Mara's &rarr; Scheda Prodotto</a>.</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- WOOCOMMERCE PRODUCT DATA BOX -->
+                    <div class="postbox">
+                        <div class="postbox-header">
+                            <h2>
+                                <span style="color:#9e5b32;">📦</span>
+                                <span>Dati prodotto &mdash; Prodotto semplice</span>
+                            </h2>
+                        </div>
+                        <div class="postbox-inside" style="padding:0;">
+                            <div style="display:flex; border-bottom:1px solid #dcdcde; background:#f6f7f7;">
+                                <button type="button" class="button" style="border:none; border-bottom:2px solid #2271b1; background:#fff; font-weight:600; border-radius:0; padding:10px 18px;">Generale</button>
+                                <button type="button" class="button" style="border:none; background:transparent; border-radius:0; padding:10px 18px; color:#666;">Inventario</button>
+                                <button type="button" class="button" style="border:none; background:transparent; border-radius:0; padding:10px 18px; color:#666;">Spedizione</button>
+                                <button type="button" class="button" style="border:none; background:transparent; border-radius:0; padding:10px 18px; color:#2271b1; font-weight:600;">Articoli collegati (4 abbinamenti)</button>
+                            </div>
+                            <div style="padding:16px;">
+                                <div style="display:grid; grid-template-columns: 160px 1fr; gap:16px; align-items:center; margin-bottom:12px;">
+                                    <label style="font-weight:600;">Prezzo di listino (€):</label>
+                                    <input type="number" value="290" style="max-width:180px;">
+                                </div>
+                                <div style="display:grid; grid-template-columns: 160px 1fr; gap:16px; align-items:center; margin-bottom:12px;">
+                                    <label style="font-weight:600;">COD (SKU Base):</label>
+                                    <input type="text" value="MARA-BAG-01" style="max-width:240px;">
+                                </div>
+                                <div style="display:grid; grid-template-columns: 160px 1fr; gap:16px; align-items:center;">
+                                    <label style="font-weight:600;">Cross-sell / Abbinamenti:</label>
+                                    <div style="font-size:12px; color:#333;">
+                                        <span style="display:inline-block; background:#e0e0e0; padding:3px 8px; border-radius:3px; margin:2px;">Portafoglio Classico "Taormina" (ID 24)</span>
+                                        <span style="display:inline-block; background:#e0e0e0; padding:3px 8px; border-radius:3px; margin:2px;">Portachiavi Portafortuna "Cornetto" (ID 25)</span>
+                                        <span style="display:inline-block; background:#e0e0e0; padding:3px 8px; border-radius:3px; margin:2px;">Cerchietto Gioiello Barocco (ID 26)</span>
+                                        <span style="display:inline-block; background:#e0e0e0; padding:3px 8px; border-radius:3px; margin:2px;">Maxi Shopper Piazza IX Aprile (ID 19)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN (SIDEBAR) -->
+                <div class="postbox-sidebar-col">
+                    <!-- PUBLISH BOX -->
+                    <div class="postbox">
+                        <div class="postbox-header">
+                            <h3>Pubblica</h3>
+                        </div>
+                        <div class="postbox-inside">
+                            <div style="margin-bottom:8px; font-size:12px; color:#555;">
+                                <div>Stato: <strong>Pubblicato</strong></div>
+                                <div>Visibilità: <strong>Pubblico</strong></div>
+                                <div>Revisioni: <strong>5</strong></div>
+                                <div>Data: <strong>13 Ottobre 2026 alle 09:00</strong></div>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; padding-top:10px; border-top:1px solid #eee;">
+                                <a href="#" style="color:#b32d2e; text-decoration:underline;">Sposta nel cestino</a>
+                                <button type="button" class="button button-primary button-large" @click="saveProduct()">
+                                    Aggiorna
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMMAGINE DEL PRODOTTO -->
+                    <div class="postbox">
+                        <div class="postbox-header">
+                            <h3>Immagine del prodotto</h3>
+                        </div>
+                        <div class="postbox-inside" style="text-align:center;">
+                            <img :src="featuredImg" style="width:100%; aspect-ratio:3/3.5; object-fit:cover; border-radius:3px; border:1px solid #ddd; margin-bottom:8px;">
+                            <div style="display:flex; gap:6px; justify-content:center;">
+                                <button type="button" class="button button-small" @click="openMediaModal(null, 'featured')">Sostituisci immagine</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GALLERIA DEL PRODOTTO -->
+                    <div class="postbox">
+                        <div class="postbox-header">
+                            <h3>Galleria del prodotto (Mosaico)</h3>
+                        </div>
+                        <div class="postbox-inside">
+                            <p style="font-size:11px; color:#666; margin:0 0 8px;">Queste immagini formano il Mosaico Editoriale a 2 Colonne stile Il Bisonte.</p>
+                            <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:6px; margin-bottom:8px;">
+                                <template x-for="(g, gIdx) in gallery" :key="gIdx">
+                                    <div style="position:relative; aspect-ratio:1; border:1px solid #ddd; border-radius:3px; overflow:hidden; background:#eee;">
+                                        <img :src="g" style="width:100%; height:100%; object-fit:cover;">
+                                        <button type="button" @click="gallery.splice(gIdx, 1)" style="position:absolute; top:2px; right:2px; background:rgba(0,0,0,0.6); color:#fff; border:none; width:18px; height:18px; border-radius:50%; font-size:12px; cursor:pointer; line-height:1;">&times;</button>
+                                    </div>
+                                </template>
+                            </div>
+                            <button type="button" class="button button-small" @click="openMediaModal(null, 'gallery')">+ Aggiungi immagini alla galleria</button>
+                        </div>
+                    </div>
+
+                    <!-- CATEGORIE PRODOTTO -->
+                    <div class="postbox">
+                        <div class="postbox-header">
+                            <h3>Categorie prodotto</h3>
+                        </div>
+                        <div class="postbox-inside">
+                            <ul style="list-style:none; padding:0; margin:0; font-size:12px; line-height:1.8;">
+                                <li><label><input type="checkbox" checked> <strong>Per Lei</strong></label>
+                                    <ul style="list-style:none; padding-left:18px; margin:0;">
+                                        <li><label><input type="checkbox" checked> Borse in Pelle</label></li>
+                                        <li><label><input type="checkbox" checked> Nuovi Arrivi</label></li>
+                                        <li><label><input type="checkbox"> Piccola Pelletteria</label></li>
+                                    </ul>
+                                </li>
+                                <li><label><input type="checkbox"> Per Lui</label></li>
+                            </ul>
+                            <div style="margin-top:10px; padding-top:8px; border-top:1px solid #eee;">
+                                <a href="backend-categorie.html" style="color:#2271b1; font-size:11px; text-decoration:underline;">
+                                    📁 Modifica Saper Fare &amp; Pilastri di Categoria &rarr;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAG DEL PRODOTTO -->
+                    <div class="postbox">
+                        <div class="postbox-header">
+                            <h3>Tag del prodotto</h3>
+                        </div>
+                        <div class="postbox-inside">
+                            <div style="font-size:11px; color:#555; margin-bottom:6px;">
+                                Taormina, Pelle Pieno Fiore, Borsetta, Handmade, Oro
+                            </div>
+                            <input type="text" placeholder="Aggiungi nuovi tag" style="font-size:12px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- WORDPRESS MEDIA LIBRARY MODAL (INTERATTIVO) -->
+    <div class="mara-media-modal-backdrop" x-show="mediaModalOpen" x-transition.opacity x-cloak>
+        <div class="mara-media-modal" @click.away="mediaModalOpen = false">
+            <div class="mara-media-header">
+                <div class="mara-media-tabs">
+                    <button type="button" class="mara-media-tab-btn is-active">Libreria Media</button>
+                    <button type="button" class="mara-media-tab-btn">Carica file</button>
+                </div>
+                <button type="button" style="background:none; border:none; font-size:22px; cursor:pointer;" @click="mediaModalOpen = false">&times;</button>
+            </div>
+            <div class="mara-media-body">
+                <div class="mara-media-grid-wrap">
+                    <template x-for="(item, mIdx) in mediaLibraryItems" :key="mIdx">
+                        <div class="mara-media-item" :class="{ 'is-selected': selectedMediaUrl === item.url }" @click="selectedMediaUrl = item.url; selectedMediaItem = item">
+                            <img :src="item.url" :alt="item.title">
+                        </div>
+                    </template>
+                </div>
+                <div class="mara-media-sidebar" x-show="selectedMediaItem">
+                    <h4 style="margin:0 0 10px;">Dettagli allegato</h4>
+                    <div style="aspect-ratio:1; background:#eee; border-radius:3px; overflow:hidden; margin-bottom:10px;">
+                        <img :src="selectedMediaItem?.url" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div style="font-weight:600; margin-bottom:4px;" x-text="selectedMediaItem?.title"></div>
+                    <div style="color:#666; margin-bottom:10px;" x-text="selectedMediaItem?.filename"></div>
+                    <label style="display:block; margin-bottom:4px; font-weight:600;">Testo alternativo:</label>
+                    <input type="text" :value="selectedMediaItem?.title" style="margin-bottom:8px; font-size:11px;">
+                    <label style="display:block; margin-bottom:4px; font-weight:600;">Titolo:</label>
+                    <input type="text" :value="selectedMediaItem?.title" style="font-size:11px;">
+                </div>
+            </div>
+            <div class="mara-media-footer">
+                <button type="button" class="button" @click="mediaModalOpen = false">Annulla</button>
+                <button type="button" class="button button-primary" :disabled="!selectedMediaUrl" @click="confirmMediaSelection()">
+                    Usa questa immagine
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="mara-admin-toast" x-show="showToast" x-transition>
+        <span>✓</span>
+        <span x-text="toastMessage"></span>
+    </div>
+
+    <script>
+    function maraAdminProduct() {
+        return {
+            showSavedNotice: false,
+            showToast: false,
+            toastMessage: '',
+            selectedBadge: 'Iconica • Best Seller',
+            activeBadgeText: 'Iconica • Best Seller',
+            availableBadges: [
+                'Iconica • Best Seller',
+                'Scelti da Mara',
+                'Novità',
+                'Edizione Limitata',
+                'Pezzo Iconico',
+                'Artigianale',
+                'Idea Regalo',
+                'Nuovo Arrivo • Per Lui',
+                'Linea Lavoro • Per Lui',
+                'Portafortuna • Abbinabile',
+                'Collezione Taormina'
+            ],
+            featuredImg: './wp-content/themes/maras-child/assets/img/mara_8.jpeg',
+            gallery: [
+                './wp-content/themes/maras-child/assets/img/mara_8.jpeg',
+                './wp-content/themes/maras-child/assets/img/mara_1.jpeg',
+                './wp-content/themes/maras-child/assets/img/mara_2.jpeg',
+                './wp-content/themes/maras-child/assets/img/mara_3.jpeg',
+                './wp-content/themes/maras-child/assets/img/mara_7.jpeg'
+            ],
+            swatches: [
+                { hex: '#285B58', name: 'Petrolio Taormina', price: 290, sku: 'MARA-01-PET', img: './wp-content/themes/maras-child/assets/img/mara_8.jpeg' },
+                { hex: '#56697A', name: 'Carta da Zucchero', price: 290, sku: 'MARA-01-BLU', img: './wp-content/themes/maras-child/assets/img/prodotto3.jpeg' },
+                { hex: '#A66B45', name: 'Cuoio Toscano', price: 290, sku: 'MARA-01-CUO', img: './wp-content/themes/maras-child/assets/img/mood-cuoio.jpg' },
+                { hex: '#3B2923', name: 'Fondente', price: 290, sku: 'MARA-01-FON', img: './wp-content/themes/maras-child/assets/img/mood-fondente.jpg' }
+            ],
+            storyText: "Realizzata interamente a mano da maestri pellettieri italiani per la boutique Mara's di Taormina. Ogni cucitura racconta la tradizione siciliana reinterpretata con linee contemporanee e morsetto iconico in ottone dorato.",
+            details: [
+                { key: 'Dimensioni', val: '24 × 18 × 10 cm' },
+                { key: 'Materiale', val: '100% Vera Pelle Bovina pieno fiore conciata al vegetale' },
+                { key: 'Fodera', val: 'Cotone naturale e pelle scamosciata' },
+                { key: 'Tasche', val: 'Doppio scomparto interno + tasca di sicurezza con zip' },
+                { key: 'Tracolla', val: 'Manico superiore scolpito + tracolla regolabile e rimovibile (luce 52 cm)' },
+                { key: 'Metalleria', val: 'Ottone spazzolato galvanizzato oro con logo Mara\'s impresso a caldo' }
+            ],
+            mediaModalOpen: false,
+            mediaTargetIdx: null,
+            mediaTargetType: 'swatch',
+            selectedMediaUrl: '',
+            selectedMediaItem: null,
+            mediaLibraryItems: [
+                { url: './wp-content/themes/maras-child/assets/img/mara_8.jpeg', title: 'Borsa Iconica Taormina — Petrolio', filename: 'mara_8.jpeg' },
+                { url: './wp-content/themes/maras-child/assets/img/mara_1.jpeg', title: 'Dettaglio Morsetto Oro', filename: 'mara_1.jpeg' },
+                { url: './wp-content/themes/maras-child/assets/img/mara_2.jpeg', title: 'Retro e Manico Scolpito', filename: 'mara_2.jpeg' },
+                { url: './wp-content/themes/maras-child/assets/img/mara_3.jpeg', title: 'Interno con Fodera e Tasca Zip', filename: 'mara_3.jpeg' },
+                { url: './wp-content/themes/maras-child/assets/img/mara_7.jpeg', title: 'Borsa Taormina Indossata', filename: 'mara_7.jpeg' },
+                { url: './wp-content/themes/maras-child/assets/img/prodotto3.jpeg', title: 'Variante Carta da Zucchero', filename: 'prodotto3.jpeg' },
+                { url: './wp-content/themes/maras-child/assets/img/mood-cuoio.jpg', title: 'Pellame Cuoio Toscano Naturale', filename: 'mood-cuoio.jpg' },
+                { url: './wp-content/themes/maras-child/assets/img/mood-fondente.jpg', title: 'Pellame Fondente Martellato', filename: 'mood-fondente.jpg' },
+                { url: './wp-content/themes/maras-child/assets/img/prodotto1.jpeg', title: 'Portafoglio Classico Taormina', filename: 'prodotto1.jpeg' },
+                { url: './wp-content/themes/maras-child/assets/img/prodotto4.jpeg', title: 'Portachiavi Cornetto Siciliano', filename: 'prodotto4.jpeg' },
+                { url: './wp-content/themes/maras-child/assets/img/mara_6.jpeg', title: 'Laboratorio Taormina Artigianale', filename: 'mara_6.jpeg' },
+                { url: './wp-content/themes/maras-child/assets/img/mara_4.jpeg', title: 'Shopper Piazza IX Aprile', filename: 'mara_4.jpeg' }
+            ],
+
+            onBadgeSelectChange() {
+                if (this.selectedBadge === '__custom__') {
+                    this.activeBadgeText = '';
+                } else {
+                    this.activeBadgeText = this.selectedBadge;
+                }
+            },
+
+            addSwatch() {
+                this.swatches.push({
+                    hex: '#285B58',
+                    name: 'Nuova Variante',
+                    price: 290,
+                    sku: 'MARA-01-NEW',
+                    img: './wp-content/themes/maras-child/assets/img/mara_8.jpeg'
+                });
+            },
+
+            removeSwatch(idx) {
+                this.swatches.splice(idx, 1);
+            },
+
+            addDetail() {
+                this.details.push({ key: '', val: '' });
+            },
+
+            removeDetail(idx) {
+                this.details.splice(idx, 1);
+            },
+
+            openMediaModal(idx, type) {
+                this.mediaTargetIdx = idx;
+                this.mediaTargetType = type;
+                this.selectedMediaUrl = '';
+                this.selectedMediaItem = null;
+                this.mediaModalOpen = true;
+            },
+
+            confirmMediaSelection() {
+                if (!this.selectedMediaUrl) return;
+
+                if (this.mediaTargetType === 'swatch' && this.mediaTargetIdx !== null) {
+                    this.swatches[this.mediaTargetIdx].img = this.selectedMediaUrl;
+                } else if (this.mediaTargetType === 'featured') {
+                    this.featuredImg = this.selectedMediaUrl;
+                } else if (this.mediaTargetType === 'gallery') {
+                    this.gallery.push(this.selectedMediaUrl);
+                }
+
+                this.mediaModalOpen = false;
+                this.triggerToast("Immagine selezionata dalla Media Library!");
+            },
+
+            saveProduct() {
+                this.showSavedNotice = true;
+                this.triggerToast("Prodotto e opzioni Il Bisonte salvati con successo!");
+            },
+
+            triggerToast(msg) {
+                this.toastMessage = msg;
+                this.showToast = true;
+                setTimeout(() => {
+                    this.showToast = false;
+                }, 3500);
+            }
+        };
+    }
+    </script>
+</body>
+</html>

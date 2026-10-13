@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique Mara&#039;s &lsaquo; Impostazioni Generali &#8212; WordPress Admin</title>
+    <link rel="stylesheet" href="wp-admin-preview.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+</head>
+<body class="wp-admin-body" x-data="maraAdminSettings()">
+
+    <!-- TOP WORDPRESS ADMIN BAR -->
+    <header id="wpadminbar">
+        <div class="wpadminbar-left">
+            <a href="index.html" class="wpadminbar-brand" title="Vai alla Home del sito">
+                <svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 0a10 10 0 1010 10A10 10 0 0010 0zm0 1.25a8.75 8.75 0 018.75 8.75c0 1.58-.42 3.06-1.15 4.35L12.78 3.52c.48-.05.97-.08 1.47-.08v-.77H9.75v.77c.39 0 .78.02 1.17.06L8.4 12.3 6.06 5.86c.27-.05.54-.08.82-.08v-.77H2.82v.77c.45 0 .89.03 1.33.08L7.5 17.65A8.74 8.74 0 011.25 10 8.75 8.75 0 0110 1.25zM10 18.75a8.7 8.7 0 01-4.14-1.04l4.23-12.28 4.3 11.8c-.02.04-.04.09-.07.13a8.68 8.68 0 01-4.32 1.39zm7.32-4.66l-2.9-8.42c.22-.02.43-.03.65-.03.35 0 .7.02 1.05.06l2.12 7.15c.02.08.04.16.06.24a8.65 8.65 0 01-.98 1z"/></svg>
+                <span>Mara's Taormina</span>
+            </a>
+            <span class="wpadminbar-badge">WordPress 6.x</span>
+            <div class="wpadminbar-nav">
+                <a href="backend-prodotto.html" class="wpadminbar-link">✏️ Modifica Prodotto</a>
+                <a href="backend-categorie.html" class="wpadminbar-link">📁 Categorie & Pilastri</a>
+                <a href="backend-opzioni.html" class="wpadminbar-link is-active">⚙️ Opzioni Boutique</a>
+            </div>
+        </div>
+        <div class="wpadminbar-right">
+            <a href="prodotto.html" class="wpadminbar-link wpadminbar-frontend-btn" target="_blank" title="Visualizza la scheda prodotto pubblica">
+                👁️ Visualizza Scheda Prodotto &rarr;
+            </a>
+            <a href="shop.html" class="wpadminbar-link" target="_blank">Shop</a>
+            <a href="index.html" class="wpadminbar-link" target="_blank">Home</a>
+            <span style="color:#a7aaad; font-size:12px;">Ciao, <strong>Amministratore</strong></span>
+        </div>
+    </header>
+
+    <div class="wp-admin-wrapper">
+        <!-- LEFT SIDEBAR -->
+        <aside class="wp-admin-sidebar">
+            <ul class="wp-admin-menu">
+                <li class="wp-menu-item current">
+                    <a href="backend-opzioni.html" class="wp-menu-link">
+                        <span class="wp-menu-icon">👜</span>
+                        <span>Boutique Mara's</span>
+                    </a>
+                    <ul class="wp-submenu">
+                        <li class="current"><a href="backend-opzioni.html">Impostazioni Generali</a></li>
+                        <li><a href="backend-prodotto.html">Scheda Prodotto</a></li>
+                        <li><a href="backend-categorie.html">Categorie &amp; Pilastri</a></li>
+                    </ul>
+                </li>
+                <li class="wp-menu-item">
+                    <a href="#" class="wp-menu-link">
+                        <span class="wp-menu-icon">📊</span>
+                        <span>WooCommerce</span>
+                    </a>
+                </li>
+                <li class="wp-menu-item">
+                    <a href="backend-prodotto.html" class="wp-menu-link">
+                        <span class="wp-menu-icon">🏷️</span>
+                        <span>Prodotti</span>
+                    </a>
+                </li>
+                <li class="wp-menu-item">
+                    <a href="#" class="wp-menu-link">
+                        <span class="wp-menu-icon">📄</span>
+                        <span>Pagine (Elementor)</span>
+                    </a>
+                </li>
+                <li class="wp-menu-item">
+                    <a href="#" class="wp-menu-link">
+                        <span class="wp-menu-icon">🎨</span>
+                        <span>Aspetto (Hello Mara's)</span>
+                    </a>
+                </li>
+                <li class="wp-menu-item">
+                    <a href="backend-opzioni.html" class="wp-menu-link">
+                        <span class="wp-menu-icon">⚙️</span>
+                        <span>Impostazioni Mara's</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ADMIN AREA -->
+        <main class="wp-admin-main" style="max-width:980px;">
+            <div class="wp-admin-header">
+                <div class="wp-admin-title-row">
+                    <h1 class="wp-admin-h1" style="display:flex; align-items:center; gap:8px;">
+                        <span>👜 Mara's Taormina • Impostazioni Generali Boutique</span>
+                    </h1>
+                </div>
+                <div>
+                    <button type="button" class="button button-primary button-large" @click="saveSettings()">
+                        💾 Salva Tutte le Impostazioni
+                    </button>
+                </div>
+            </div>
+
+            <p style="color:#666; margin-top:-10px; margin-bottom:20px;">
+                Configura qui le soglie della spedizione gratuita nel carrello, i testi generali delle fisarmoniche e i blocchi editoriali di artigianalità per tutto il negozio.
+            </p>
+
+            <!-- SUCCESS NOTIFICATION -->
+            <div class="notice notice-success" x-show="showSavedNotice" x-transition>
+                <p><strong>Impostazioni Boutique Mara's salvate con successo!</strong> Le modifiche sono immediatamente attive su carrello, drawer e schede prodotto.</p>
+                <button type="button" class="button button-small" @click="showSavedNotice = false">&times;</button>
+            </div>
+
+            <!-- 1. SOGLIE SPEDIZIONE GRATUITA NEL CARRELLO -->
+            <div class="postbox" style="border-top:3px solid #9e5b32;">
+                <div class="postbox-header">
+                    <h2>
+                        <span>🚚 Barra «Spedizione Express Gratuita» (Carrello &amp; Drawer)</span>
+                    </h2>
+                </div>
+                <div class="postbox-inside">
+                    <p style="color:#666; font-size:12px; margin-bottom:14px;">
+                        La barra rileva in automatico le <strong>Zone di Spedizione e i Metodi di WooCommerce</strong> (<em>WooCommerce &rarr; Impostazioni &rarr; Spedizione &rarr; Spedizione gratuita</em>) e i <strong>Coupon con Spedizione Gratuita</strong>. Se non hai ancora configurato un metodo Spedizione Gratuita nelle zone di WooCommerce, il sistema usa come riferimento queste soglie per ciascuna area geografica.
+                    </p>
+                    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:16px;">
+                        <div style="background:#fafafa; border:1px solid #e2e4e7; border-radius:4px; padding:12px;">
+                            <label style="font-weight:600; display:block; margin-bottom:6px;">🇮🇹 Soglia Italia (€):</label>
+                            <input type="number" step="1" x-model="shipFreeIt" style="font-size:16px; font-weight:600; color:#2271b1;">
+                            <small style="color:#666; display:block; margin-top:4px;">Predefinito: 150 €</small>
+                        </div>
+                        <div style="background:#fafafa; border:1px solid #e2e4e7; border-radius:4px; padding:12px;">
+                            <label style="font-weight:600; display:block; margin-bottom:6px;">🇪🇺 Soglia Unione Europea (€):</label>
+                            <input type="number" step="1" x-model="shipFreeEu" style="font-size:16px; font-weight:600; color:#2271b1;">
+                            <small style="color:#666; display:block; margin-top:4px;">Predefinito: 200 €</small>
+                        </div>
+                        <div style="background:#fafafa; border:1px solid #e2e4e7; border-radius:4px; padding:12px;">
+                            <label style="font-weight:600; display:block; margin-bottom:6px;">🌍 Soglia USA &amp; Extra-UE (€):</label>
+                            <input type="number" step="1" x-model="shipFreeRow" style="font-size:16px; font-weight:600; color:#2271b1;">
+                            <small style="color:#666; display:block; margin-top:4px;">Predefinito: 250 €</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. FISARMONICA 3: SPEDIZIONE & RESI -->
+            <div class="postbox">
+                <div class="postbox-header">
+                    <h2>
+                        <span>📦 Testi Scheda Prodotto: Spedizione, Consegna e Resi (Fisarmonica 3)</span>
+                    </h2>
+                </div>
+                <div class="postbox-inside">
+                    <p style="color:#666; font-size:12px; margin-bottom:14px;">
+                        Questi testi compaiono all'interno della 3ª fisarmonica di tutte le schede prodotto dello shop.
+                    </p>
+                    <div style="margin-bottom:16px;">
+                        <label style="font-weight:600; display:block; margin-bottom:6px;">Spedizione Italia &amp; Unione Europea:</label>
+                        <textarea rows="3" x-model="shippingIt"></textarea>
+                    </div>
+                    <div>
+                        <label style="font-weight:600; display:block; margin-bottom:6px;">Spedizioni Internazionali (USA &amp; Extra-UE):</label>
+                        <textarea rows="3" x-model="shippingIntlIt"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. FISARMONICA 4: ISTRUZIONI PER LA CURA -->
+            <div class="postbox">
+                <div class="postbox-header">
+                    <h2>
+                        <span>🌿 Fisarmonica 4: Istruzioni per la Cura della Pelle (Generale per tutto il sito)</span>
+                    </h2>
+                </div>
+                <div class="postbox-inside">
+                    <p style="color:#666; font-size:12px; margin-bottom:14px;">
+                        Consigli di manutenzione della vacchetta e del cuoio pieno fiore per i clienti della boutique.
+                    </p>
+                    <div>
+                        <label style="font-weight:600; display:block; margin-bottom:6px;">Testo Cura del Cuoio &amp; Conservazione:</label>
+                        <textarea rows="4" x-model="careIt"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. VALORI PREDEFINITI ARTIGIANALITÀ & PILASTRI (FALLBACK) -->
+            <div class="postbox" style="background:#faf8f5;">
+                <div class="postbox-header" style="background:#f4ece1;">
+                    <h2 style="color:#3b2923;">
+                        <span>✨ Saper Fare &amp; 3 Pilastri (Predefiniti Globali del Sito)</span>
+                    </h2>
+                </div>
+                <div class="postbox-inside">
+                    <p style="color:#666; font-size:12px; margin-bottom:14px;">
+                        Se una categoria di prodotti non ha testi specifici impostati in <em>Prodotti &rarr; Categorie</em>, verranno mostrati questi valori predefiniti nella scheda prodotto.
+                    </p>
+                    <div style="margin-bottom:14px;">
+                        <label style="font-weight:600; display:block; margin-bottom:4px;">Sottotitolo Artigianalità Predefinito:</label>
+                        <input type="text" x-model="craftEyebrow">
+                    </div>
+                    <div style="margin-bottom:14px;">
+                        <label style="font-weight:600; display:block; margin-bottom:4px;">Titolo Artigianalità Predefinito:</label>
+                        <input type="text" x-model="craftTitle">
+                    </div>
+                    <div style="margin-bottom:14px;">
+                        <label style="font-weight:600; display:block; margin-bottom:4px;">Testo Artigianalità Predefinito:</label>
+                        <textarea rows="3" x-model="craftDesc"></textarea>
+                    </div>
+                    <div>
+                        <label style="font-weight:600; display:block; margin-bottom:4px;">Foto Artigianalità Predefinita (Media Library):</label>
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <div style="width:48px; height:48px; border:1px solid #ccc; border-radius:3px; overflow:hidden; background:#eee;">
+                                <img :src="craftImg" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <input type="text" x-model="craftImg" style="flex:1;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:20px; text-align:right;">
+                <button type="button" class="button button-primary button-large" @click="saveSettings()">
+                    💾 Salva Tutte le Impostazioni
+                </button>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="mara-admin-toast" x-show="showToast" x-transition>
+        <span>✓</span>
+        <span x-text="toastMessage"></span>
+    </div>
+
+    <script>
+    function maraAdminSettings() {
+        return {
+            showSavedNotice: false,
+            showToast: false,
+            toastMessage: '',
+            shipFreeIt: 150,
+            shipFreeEu: 200,
+            shipFreeRow: 250,
+            shippingIt: "Spedizione Italia & UE: Corriere Espresso tracciato (consegna in 2–3 giorni lavorativi). Tutti gli articoli, inclusi i portachiavi da €19, sono spedibili singolarmente in Italia.",
+            shippingIntlIt: "Spedizioni Internazionali USA & Extra-UE: Spedizione Express assicurata dedicata ai nostri clienti internazionali (ordine minimo €200 per gli accessori entry-level).",
+            careIt: "La vacchetta e il cuoio pieno fiore acquisiscono carattere con il tempo. Conservare nella dustbag in cotone Mara's inclusa, lontano da fonti dirette di calore o umidità. Nutrire periodicamente con crema neutra specifica per pelletteria.",
+            craftEyebrow: "SAPER FARE ARTIGIANALE • FILIERA CORTA",
+            craftTitle: "Una pelle viva che racconta chi sei.",
+            craftDesc: "Come nella migliore tradizione pellettiera italiana, ogni borsa Mara's nasce da vacchetta e cuoio pieno fiore conciati al vegetale con tannini naturali. Con l'uso quotidiano e la luce del sole di Sicilia, la pelle si ammorbidisce e sviluppa una patina ambrata unica e irripetibile.",
+            craftImg: "./wp-content/themes/maras-child/assets/img/mara_6.jpeg",
+
+            saveSettings() {
+                this.showSavedNotice = true;
+                this.triggerToast("Tutte le impostazioni Boutique Mara's sono state salvate!");
+            },
+
+            triggerToast(msg) {
+                this.toastMessage = msg;
+                this.showToast = true;
+                setTimeout(() => {
+                    this.showToast = false;
+                }, 3500);
+            }
+        };
+    }
+    </script>
+</body>
+</html>

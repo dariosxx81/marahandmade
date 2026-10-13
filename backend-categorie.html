@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifica Categoria Prodotto &lsaquo; Mara&#039;s Taormina &#8212; WordPress Admin</title>
+    <link rel="stylesheet" href="wp-admin-preview.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+</head>
+<body class="wp-admin-body" x-data="maraAdminCategories()">
+
+    <!-- TOP WORDPRESS ADMIN BAR -->
+    <header id="wpadminbar">
+        <div class="wpadminbar-left">
+            <a href="index.html" class="wpadminbar-brand" title="Vai alla Home del sito">
+                <svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 0a10 10 0 1010 10A10 10 0 0010 0zm0 1.25a8.75 8.75 0 018.75 8.75c0 1.58-.42 3.06-1.15 4.35L12.78 3.52c.48-.05.97-.08 1.47-.08v-.77H9.75v.77c.39 0 .78.02 1.17.06L8.4 12.3 6.06 5.86c.27-.05.54-.08.82-.08v-.77H2.82v.77c.45 0 .89.03 1.33.08L7.5 17.65A8.74 8.74 0 011.25 10 8.75 8.75 0 0110 1.25zM10 18.75a8.7 8.7 0 01-4.14-1.04l4.23-12.28 4.3 11.8c-.02.04-.04.09-.07.13a8.68 8.68 0 01-4.32 1.39zm7.32-4.66l-2.9-8.42c.22-.02.43-.03.65-.03.35 0 .7.02 1.05.06l2.12 7.15c.02.08.04.16.06.24a8.65 8.65 0 01-.98 1z"/></svg>
+                <span>Mara's Taormina</span>
+            </a>
+            <span class="wpadminbar-badge">WordPress 6.x</span>
+            <div class="wpadminbar-nav">
+                <a href="backend-prodotto.html" class="wpadminbar-link">✏️ Modifica Prodotto</a>
+                <a href="backend-categorie.html" class="wpadminbar-link is-active">📁 Categorie & Pilastri</a>
+                <a href="backend-opzioni.html" class="wpadminbar-link">⚙️ Opzioni Boutique</a>
+            </div>
+        </div>
+        <div class="wpadminbar-right">
+            <a href="prodotto.html" class="wpadminbar-link wpadminbar-frontend-btn" target="_blank" title="Visualizza la scheda prodotto pubblica">
+                👁️ Visualizza Scheda Prodotto &rarr;
+            </a>
+            <a href="shop.html" class="wpadminbar-link" target="_blank">Shop</a>
+            <a href="index.html" class="wpadminbar-link" target="_blank">Home</a>
+            <span style="color:#a7aaad; font-size:12px;">Ciao, <strong>Amministratore</strong></span>
+        </div>
+    </header>
+
+    <div class="wp-admin-wrapper">
+        <!-- LEFT SIDEBAR -->
+        <aside class="wp-admin-sidebar">
+            <ul class="wp-admin-menu">
+                <li class="wp-menu-item">
+                    <a href="backend-opzioni.html" class="wp-menu-link">
+                        <span class="wp-menu-icon">👜</span>
+                        <span>Boutique Mara's</span>
+                    </a>
+                </li>
+                <li class="wp-menu-item">
+                    <a href="#" class="wp-menu-link">
+                        <span class="wp-menu-icon">📊</span>
+                        <span>WooCommerce</span>
+                    </a>
+                </li>
+                <li class="wp-menu-item current">
+                    <a href="backend-prodotto.html" class="wp-menu-link">
+                        <span class="wp-menu-icon">🏷️</span>
+                        <span>Prodotti</span>
+                    </a>
+                    <ul class="wp-submenu">
+                        <li><a href="backend-prodotto.html">Tutti i prodotti</a></li>
+                        <li><a href="backend-prodotto.html">Modifica Prodotto</a></li>
+                        <li class="current"><a href="backend-categorie.html">Categorie (Saper Fare &amp; Pilastri)</a></li>
+                        <li><a href="#">Tag</a></li>
+                        <li><a href="#">Attributi</a></li>
+                    </ul>
+                </li>
+                <li class="wp-menu-item">
+                    <a href="#" class="wp-menu-link">
+                        <span class="wp-menu-icon">📄</span>
+                        <span>Pagine (Elementor)</span>
+                    </a>
+                </li>
+                <li class="wp-menu-item">
+                    <a href="#" class="wp-menu-link">
+                        <span class="wp-menu-icon">🎨</span>
+                        <span>Aspetto (Hello Mara's)</span>
+                    </a>
+                </li>
+                <li class="wp-menu-item">
+                    <a href="backend-opzioni.html" class="wp-menu-link">
+                        <span class="wp-menu-icon">⚙️</span>
+                        <span>Impostazioni Mara's</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ADMIN AREA -->
+        <main class="wp-admin-main" style="max-width:1100px;">
+            <div class="wp-admin-header">
+                <div class="wp-admin-title-row">
+                    <h1 class="wp-admin-h1">Modifica Categoria Prodotto: <em>Borse in Pelle</em></h1>
+                </div>
+                <div>
+                    <a href="prodotto.html#saper-fare" target="_blank" class="button button-secondary" style="margin-right:8px;">
+                        👁️ Vedi Risultato in Scheda Prodotto
+                    </a>
+                    <button type="button" class="button button-primary button-large" @click="saveCategory()">
+                        💾 Aggiorna Categoria
+                    </button>
+                </div>
+            </div>
+
+            <!-- SUCCESS NOTIFICATION -->
+            <div class="notice notice-success" x-show="showSavedNotice" x-transition>
+                <p><strong>Categoria prodotto aggiornata.</strong> I blocchi "Saper Fare Artigianale" e i "3 Pilastri" di tutti i prodotti appartenenti a questa categoria sono ora sincronizzati.</p>
+                <button type="button" class="button button-small" @click="showSavedNotice = false">&times;</button>
+            </div>
+
+            <div style="background:#fff; border:1px solid #ccd0d4; border-radius:4px; padding:24px; box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                
+                <!-- STANDARD CATEGORY FIELDS -->
+                <h3 style="margin-top:0; border-bottom:1px solid #eee; padding-bottom:10px; color:#1d2327;">
+                    Dati Generali Categoria WooCommerce
+                </h3>
+                
+                <table class="form-table" style="width:100%; border-collapse:collapse; margin-bottom:24px;">
+                    <tbody>
+                        <tr>
+                            <th style="width:240px; text-align:left; padding:12px 10px; vertical-align:top; font-weight:600;">
+                                <label>Nome Categoria</label>
+                            </th>
+                            <td style="padding:10px;">
+                                <input type="text" value="Borse in Pelle" style="max-width:500px;">
+                                <p style="font-size:12px; color:#666; margin:4px 0 0;">Il nome che appare sullo Shop e nei filtri.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left; padding:12px 10px; vertical-align:top; font-weight:600;">
+                                <label>Slug (URL abbreviato)</label>
+                            </th>
+                            <td style="padding:10px;">
+                                <input type="text" value="borse-in-pelle" style="max-width:500px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left; padding:12px 10px; vertical-align:top; font-weight:600;">
+                                <label>Categoria genitore</label>
+                            </th>
+                            <td style="padding:10px;">
+                                <select style="max-width:300px;">
+                                    <option>Nessuna</option>
+                                    <option selected>Per Lei</option>
+                                    <option>Per Lui</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left; padding:12px 10px; vertical-align:top; font-weight:600;">
+                                <label>Descrizione Categoria</label>
+                            </th>
+                            <td style="padding:10px;">
+                                <textarea rows="3" style="max-width:650px;">Borse strutturate, hobo, shopper e tracolle realizzate artigianalmente a mano con pellami pieno fiore conciati al vegetale in Sicilia.</textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- CUSTOM SECTION: SAPER FARE & 3 PILASTRI PER CATEGORIA -->
+                <div style="background:#fcf8f4; border:2px solid #9e5b32; border-radius:6px; padding:20px; margin-top:20px;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+                        <div>
+                            <h3 style="margin:0; color:#3b2923; font-size:17px; display:flex; align-items:center; gap:8px;">
+                                <span>✨</span>
+                                <strong>Mara's • Saper Fare Artigianale &amp; 3 Pilastri per questa Categoria</strong>
+                            </h3>
+                            <p style="margin:4px 0 0; font-size:13px; color:#666;">
+                                I prodotti associati a questa categoria mostreranno automaticamente questi blocchi editoriali e fotografici sotto la griglia degli abbinamenti (stile Il Bisonte).
+                            </p>
+                        </div>
+                        <span class="wpadminbar-badge" style="background:#9e5b32;">Configurazione Categoria</span>
+                    </div>
+
+                    <hr style="border:0; border-top:1px solid #ebd9cc; margin:16px 0;">
+
+                    <!-- ARTIGIANALITÀ SPLIT (SINISTRA TESTO, DESTRA FOTO) -->
+                    <h4 style="margin:0 0 14px; color:#3b2923; font-size:15px;">1. Blocco Editoriale "Saper Fare Artigianale" (Split 50/50)</h4>
+                    
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; background:#fff; border:1px solid #e2d3c7; border-radius:4px; padding:16px; margin-bottom:20px;">
+                        <div>
+                            <div style="margin-bottom:14px;">
+                                <label style="font-weight:600; display:block; margin-bottom:4px;">Sottotitolo Artigianalità (Eyebrow):</label>
+                                <input type="text" x-model="craftEyebrow" style="font-size:12px; letter-spacing:1px; text-transform:uppercase;">
+                            </div>
+                            <div style="margin-bottom:14px;">
+                                <label style="font-weight:600; display:block; margin-bottom:4px;">Titolo Artigianalità:</label>
+                                <input type="text" x-model="craftTitle" style="font-weight:600;">
+                            </div>
+                            <div>
+                                <label style="font-weight:600; display:block; margin-bottom:4px;">Testo Editoriale Artigianalità:</label>
+                                <textarea rows="5" x-model="craftDesc"></textarea>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label style="font-weight:600; display:block; margin-bottom:6px;">Foto Editoriale Artigianalità (Media Library):</label>
+                            <div style="width:100%; aspect-ratio:4/3; border-radius:4px; overflow:hidden; border:1px solid #ccc; background:#eee; margin-bottom:10px;">
+                                <img :src="craftImg" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div style="display:flex; gap:8px;">
+                                <input type="text" x-model="craftImg" style="font-size:11px;">
+                                <button type="button" class="button" @click="openMedia('craft')">📷 Scegli</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- I 3 PILASTRI -->
+                    <h4 style="margin:0 0 14px; color:#3b2923; font-size:15px;">2. I 3 Pilastri di Categoria (Concia al Vegetale, Fatto a Mano, Custodia nel Tempo)</h4>
+                    
+                    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:16px;">
+                        
+                        <!-- PILASTRO 1 -->
+                        <div style="background:#fff; border:1px solid #e2d3c7; border-radius:4px; padding:16px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <strong style="color:#9e5b32; font-size:13px;">Pilastro 01</strong>
+                                <span style="font-size:11px; background:#f0f0f1; padding:2px 6px; border-radius:3px;">Card 1/3</span>
+                            </div>
+                            <div style="width:100%; aspect-ratio:3/2; border-radius:3px; overflow:hidden; border:1px solid #eee; margin-bottom:10px; background:#f8f8f8;">
+                                <img :src="p1Img" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div style="margin-bottom:8px;">
+                                <label style="font-size:11px; font-weight:600; display:block; margin-bottom:2px;">Titolo Pilastro 01:</label>
+                                <input type="text" x-model="p1Title">
+                            </div>
+                            <div style="margin-bottom:8px;">
+                                <label style="font-size:11px; font-weight:600; display:block; margin-bottom:2px;">Descrizione:</label>
+                                <textarea rows="3" x-model="p1Desc" style="font-size:12px;"></textarea>
+                            </div>
+                            <div>
+                                <label style="font-size:11px; font-weight:600; display:block; margin-bottom:2px;">Foto Pilastro 01:</label>
+                                <div style="display:flex; gap:6px;">
+                                    <input type="text" x-model="p1Img" style="font-size:10px;">
+                                    <button type="button" class="button button-small" @click="openMedia('p1')">📷 Scegli</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PILASTRO 2 -->
+                        <div style="background:#fff; border:1px solid #e2d3c7; border-radius:4px; padding:16px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <strong style="color:#9e5b32; font-size:13px;">Pilastro 02</strong>
+                                <span style="font-size:11px; background:#f0f0f1; padding:2px 6px; border-radius:3px;">Card 2/3</span>
+                            </div>
+                            <div style="width:100%; aspect-ratio:3/2; border-radius:3px; overflow:hidden; border:1px solid #eee; margin-bottom:10px; background:#f8f8f8;">
+                                <img :src="p2Img" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div style="margin-bottom:8px;">
+                                <label style="font-size:11px; font-weight:600; display:block; margin-bottom:2px;">Titolo Pilastro 02:</label>
+                                <input type="text" x-model="p2Title">
+                            </div>
+                            <div style="margin-bottom:8px;">
+                                <label style="font-size:11px; font-weight:600; display:block; margin-bottom:2px;">Descrizione:</label>
+                                <textarea rows="3" x-model="p2Desc" style="font-size:12px;"></textarea>
+                            </div>
+                            <div>
+                                <label style="font-size:11px; font-weight:600; display:block; margin-bottom:2px;">Foto Pilastro 02:</label>
+                                <div style="display:flex; gap:6px;">
+                                    <input type="text" x-model="p2Img" style="font-size:10px;">
+                                    <button type="button" class="button button-small" @click="openMedia('p2')">📷 Scegli</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PILASTRO 3 -->
+                        <div style="background:#fff; border:1px solid #e2d3c7; border-radius:4px; padding:16px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <strong style="color:#9e5b32; font-size:13px;">Pilastro 03</strong>
+                                <span style="font-size:11px; background:#f0f0f1; padding:2px 6px; border-radius:3px;">Card 3/3</span>
+                            </div>
+                            <div style="width:100%; aspect-ratio:3/2; border-radius:3px; overflow:hidden; border:1px solid #eee; margin-bottom:10px; background:#f8f8f8;">
+                                <img :src="p3Img" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div style="margin-bottom:8px;">
+                                <label style="font-size:11px; font-weight:600; display:block; margin-bottom:2px;">Titolo Pilastro 03:</label>
+                                <input type="text" x-model="p3Title">
+                            </div>
+                            <div style="margin-bottom:8px;">
+                                <label style="font-size:11px; font-weight:600; display:block; margin-bottom:2px;">Descrizione:</label>
+                                <textarea rows="3" x-model="p3Desc" style="font-size:12px;"></textarea>
+                            </div>
+                            <div>
+                                <label style="font-size:11px; font-weight:600; display:block; margin-bottom:2px;">Foto Pilastro 03:</label>
+                                <div style="display:flex; gap:6px;">
+                                    <input type="text" x-model="p3Img" style="font-size:10px;">
+                                    <button type="button" class="button button-small" @click="openMedia('p3')">📷 Scegli</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div style="margin-top:24px; padding-top:16px; border-top:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
+                    <a href="backend-prodotto.html" class="button">Torna al Prodotto</a>
+                    <button type="button" class="button button-primary button-large" @click="saveCategory()">
+                        💾 Aggiorna Categoria
+                    </button>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- WORDPRESS MEDIA LIBRARY MODAL -->
+    <div class="mara-media-modal-backdrop" x-show="mediaModalOpen" x-transition.opacity x-cloak>
+        <div class="mara-media-modal" @click.away="mediaModalOpen = false">
+            <div class="mara-media-header">
+                <div class="mara-media-tabs">
+                    <button type="button" class="mara-media-tab-btn is-active">Libreria Media</button>
+                    <button type="button" class="mara-media-tab-btn">Carica file</button>
+                </div>
+                <button type="button" style="background:none; border:none; font-size:22px; cursor:pointer;" @click="mediaModalOpen = false">&times;</button>
+            </div>
+            <div class="mara-media-body">
+                <div class="mara-media-grid-wrap">
+                    <template x-for="(item, mIdx) in mediaLibraryItems" :key="mIdx">
+                        <div class="mara-media-item" :class="{ 'is-selected': selectedMediaUrl === item.url }" @click="selectedMediaUrl = item.url">
+                            <img :src="item.url" :alt="item.title">
+                        </div>
+                    </template>
+                </div>
+            </div>
+            <div class="mara-media-footer">
+                <button type="button" class="button" @click="mediaModalOpen = false">Annulla</button>
+                <button type="button" class="button button-primary" :disabled="!selectedMediaUrl" @click="confirmMedia()">
+                    Usa questa immagine per la categoria
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="mara-admin-toast" x-show="showToast" x-transition>
+        <span>✓</span>
+        <span x-text="toastMessage"></span>
+    </div>
+
+    <script>
+    function maraAdminCategories() {
+        return {
+            showSavedNotice: false,
+            showToast: false,
+            toastMessage: '',
+            craftEyebrow: 'SAPER FARE ARTIGIANALE • FILIERA CORTA',
+            craftTitle: 'Una pelle viva che racconta chi sei.',
+            craftDesc: "Come nella migliore tradizione pellettiera italiana, ogni borsa Mara's nasce da vacchetta e cuoio pieno fiore conciati al vegetale con tannini naturali. Con l'uso quotidiano e la luce del sole di Sicilia, la pelle si ammorbidisce e sviluppa una patina ambrata unica e irripetibile.",
+            craftImg: './wp-content/themes/maras-child/assets/img/mara_6.jpeg',
+            p1Title: 'Concia al Vegetale Naturale',
+            p1Desc: 'Pelli selezionate a pieno fiore lavorate con estratti naturali, prive di sostanze chimiche aggressive e destinate a durare decenni.',
+            p1Img: './wp-content/themes/maras-child/assets/img/mood-cuoio.jpg',
+            p2Title: 'Fatto a Mano per Taormina',
+            p2Desc: 'Taglio su banco, costolatura dipinta a pennello, impunture rinforzate e metalleria in ottone spazzolato con logo Mara\'s.',
+            p2Img: './wp-content/themes/maras-child/assets/img/mara_4.jpeg',
+            p3Title: 'Cura & Custodia nel Tempo',
+            p3Desc: 'Ogni creazione viaggia nella sua Dustbag protettiva in cotone naturale con certificato di autenticità della Boutique di Corso Umberto.',
+            p3Img: './wp-content/themes/maras-child/assets/img/mara_7.jpeg',
+            mediaModalOpen: false,
+            mediaTarget: 'craft',
+            selectedMediaUrl: '',
+            mediaLibraryItems: [
+                { url: './wp-content/themes/maras-child/assets/img/mara_6.jpeg', title: 'Laboratorio Artigianale Taormina' },
+                { url: './wp-content/themes/maras-child/assets/img/mood-cuoio.jpg', title: 'Pellame Cuoio Toscano Naturale' },
+                { url: './wp-content/themes/maras-child/assets/img/mara_4.jpeg', title: 'Shopper e Cuciture a Mano' },
+                { url: './wp-content/themes/maras-child/assets/img/mara_7.jpeg', title: 'Cura e Dustbag Protettiva' },
+                { url: './wp-content/themes/maras-child/assets/img/mood-fondente.jpg', title: 'Pellame Fondente Martellato' },
+                { url: './wp-content/themes/maras-child/assets/img/mara_8.jpeg', title: 'Borsa Petrolio Taormina' }
+            ],
+
+            openMedia(target) {
+                this.mediaTarget = target;
+                this.selectedMediaUrl = '';
+                this.mediaModalOpen = true;
+            },
+
+            confirmMedia() {
+                if (!this.selectedMediaUrl) return;
+                if (this.mediaTarget === 'craft') this.craftImg = this.selectedMediaUrl;
+                if (this.mediaTarget === 'p1') this.p1Img = this.selectedMediaUrl;
+                if (this.mediaTarget === 'p2') this.p2Img = this.selectedMediaUrl;
+                if (this.mediaTarget === 'p3') this.p3Img = this.selectedMediaUrl;
+                this.mediaModalOpen = false;
+                this.triggerToast("Immagine di categoria aggiornata con successo!");
+            },
+
+            saveCategory() {
+                this.showSavedNotice = true;
+                this.triggerToast("Categoria e Pilastri salvati!");
+            },
+
+            triggerToast(msg) {
+                this.toastMessage = msg;
+                this.showToast = true;
+                setTimeout(() => {
+                    this.showToast = false;
+                }, 3500);
+            }
+        };
+    }
+    </script>
+</body>
+</html>
